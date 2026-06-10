@@ -1191,7 +1191,8 @@
     const canvas = document.getElementById('hero-canvas');
     const ctx = canvas.getContext('2d');
     let W, H, entities = [], stars = [];
-    const ENTITY_COUNT = 100;
+    const ENTITY_COUNT = 80;
+    const SYMBOLS = ["{ }", "=>", "< />", "()", "#", "var", "++", ";", "//"];
     const STAR_COUNT = 250;
 
     function resize() {
@@ -1209,7 +1210,8 @@
           z: Math.random() * 2 + 0.5, // Depth for parallax and size
           vx: (Math.random() - 0.5) * 0.5,
           vy: (Math.random() - 0.5) * 0.5 - 0.2, // Slight upward drift
-          opacityOffset: Math.random() * Math.PI * 2
+          opacityOffset: Math.random() * Math.PI * 2,
+          text: Math.random() > 0.4 ? SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)] : null
         });
       }
       for (let i = 0; i < STAR_COUNT; i++) {
@@ -1339,12 +1341,20 @@
         currentOpacity *= (1 / p.z) * 1.5;
         if (currentOpacity > 0.9) currentOpacity = 0.9;
 
-        // Draw node
-        let nodeSize = 2 / p.z;
+        // Draw node or symbol
         ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity})`;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, nodeSize, 0, Math.PI * 2);
-        ctx.fill();
+        if (p.text) {
+          let fontSize = 16 / p.z;
+          ctx.font = `500 ${fontSize}px 'JetBrains Mono', monospace`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(p.text, p.x, p.y);
+        } else {
+          let nodeSize = 2 / p.z;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, nodeSize, 0, Math.PI * 2);
+          ctx.fill();
+        }
 
         // Connections between nearby nodes
         for (let j = i + 1; j < entities.length; j++) {
