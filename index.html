@@ -83,7 +83,7 @@
       height: 100%;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.4;
+      opacity: 0.18;
     }
 
     /* ── NAV ── */
@@ -905,12 +905,8 @@
         padding: 0 4rem;
       }
 
-      .hero-stats {
-        right: 4rem;
-      }
-
       section {
-        padding: 6rem 4rem;
+        padding: 4rem 4rem;
       }
 
       .contact-box {
@@ -933,6 +929,8 @@
       #hero {
         padding: 0 2rem;
         align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
       }
 
       .hero-content {
@@ -945,6 +943,7 @@
         justify-content: flex-start;
         margin-top: 3rem;
         gap: 2rem;
+        flex-wrap: wrap;
         animation: fadeUp 0.8s 1.3s forwards;
       }
 
@@ -952,8 +951,12 @@
         text-align: left;
       }
 
+      .stat-num {
+        font-size: 2.5rem;
+      }
+
       section {
-        padding: 4rem 2rem;
+        padding: 3rem 2rem;
       }
 
       .scroll-hint {
@@ -970,6 +973,14 @@
 
       .job-card {
         padding: 1.5rem;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+
+      .edu-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -1257,7 +1268,7 @@
       }
     }
 
-    let mouseX = W / 2, mouseY = H / 2;
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
     let isDragging = false;
     document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
     document.addEventListener('mousedown', () => isDragging = true);
