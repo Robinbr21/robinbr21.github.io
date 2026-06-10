@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Robin B R — C# / WPF Developer</title>
+  <title>Robin - Profile</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet">
@@ -208,19 +208,16 @@
     }
 
     .hero-name {
-      font-family: 'Inter', sans-serif;
+      font-family: 'JetBrains Mono', monospace;
       font-size: clamp(3rem, 6vw, 5.5rem);
       font-weight: 700;
       line-height: 1.1;
-      letter-spacing: -0.03em;
-      color: var(--white);
+      letter-spacing: -0.05em;
+      color: var(--cyan);
       margin-bottom: 0.5rem;
       opacity: 0;
       animation: fadeUp 0.8s 0.5s forwards;
-    }
-
-    .hero-name span {
-      color: var(--cyan);
+      text-shadow: 0 0 15px var(--cyan-glow);
     }
 
     .hero-role {
@@ -942,7 +939,7 @@
   <section id="hero">
     <div class="hero-content">
       <p class="hero-eyebrow">Available for new opportunities</p>
-      <h1 class="hero-name">Robin <span>B R</span></h1>
+      <h1 class="hero-name" id="matrix-name" data-value="ROBIN B R">ROBIN B R</h1>
       <p class="hero-role">C# &nbsp;/&nbsp; WPF &nbsp;/&nbsp; .NET Developer</p>
       <p class="hero-desc">Building robust, scalable desktop applications with clean architecture. Four years of
         crafting high-performance UIs with WPF, MVVM, and cross-platform frameworks for real-world enterprise systems.
@@ -1115,7 +1112,9 @@
           </div>
           <div class="contact-text">
             <small>Email</small>
-            <a href="mailto:robinbr212@gmail.com" style="color: inherit; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='inherit'">robinbr212@gmail.com</a>
+            <a href="mailto:robinbr212@gmail.com" style="color: inherit; text-decoration: none; transition: color 0.3s;"
+              onmouseover="this.style.color='var(--cyan)'"
+              onmouseout="this.style.color='inherit'">robinbr212@gmail.com</a>
           </div>
         </div>
         <div class="contact-item">
@@ -1153,7 +1152,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>Designed &amp; built for <span>Robin B R</span> · C# / WPF Developer · Calicut, Kerala</p>
+    <p>Designed &amp; built by <span>Robin B R</span></p>
   </footer>
 
   <script>
@@ -1387,6 +1386,25 @@
     }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
 
     reveals.forEach(el => observer.observe(el));
+
+    // Hacker Decoder Effect for Hero Name
+    const nameEl = document.getElementById('matrix-name');
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
+    
+    setTimeout(() => {
+      let iterations = 0;
+      const finalName = nameEl.dataset.value;
+      const interval = setInterval(() => {
+        nameEl.innerText = finalName.split("").map((letter, index) => {
+          if(letter === " ") return " ";
+          if (index < iterations) return finalName[index];
+          return letters[Math.floor(Math.random() * letters.length)];
+        }).join("");
+        
+        if (iterations >= finalName.length) clearInterval(interval);
+        iterations += 1 / 3;
+      }, 50);
+    }, 800);
   </script>
 </body>
 
