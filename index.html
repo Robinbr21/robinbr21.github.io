@@ -1498,7 +1498,12 @@
       
       greetingEl.innerText = greeting;
       
-      const options = { 
+      const isMobile = window.innerWidth <= 768;
+      const options = isMobile ? {
+        hour: '2-digit', 
+        minute: '2-digit', 
+        timeZoneName: 'short'
+      } : { 
         weekday: 'short', 
         month: 'short', 
         day: 'numeric', 
@@ -1507,6 +1512,7 @@
         second: '2-digit',
         timeZoneName: 'short' 
       };
+      
       datetimeEl.innerText = now.toLocaleString('en-US', options).replace(/,/g, '');
     }
 
